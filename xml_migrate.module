@@ -1,0 +1,75 @@
+<?php
+
+
+function xml_migrate_menu() {
+      $items = array();
+
+
+// First, create the area for your menu items on the config page.
+$items['admin/config/xml_migrate'] = array(
+        'title' => 'XML to Drupal nodes',
+        'description' => 'Migrate the xml data to drupal nodes',
+        'position' => 'right', //Wether it is on the right or the left of the config page
+        'weight' => -15,
+        'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
+        'access arguments' => array('administer site configuration'), // Permission needed to view this area
+        'file' => 'system.admin.inc', //DONT CHANGE THIS!
+        'file path' => drupal_get_path('module', 'system'), //DONT CHANGE THIS!
+    );
+
+	    $items['admin/config/development/xml_migrate'] = array(
+	  	'type' => MENU_NORMAL_ITEM,
+        'title' => 'XML to Drupal nodes',
+        'description' => 'Migrate the xml data to drupal nodes',
+	  	'page callback' => 'drupal_get_form',
+	  	'file' => 'system.admin.inc',
+	  	'file path' => drupal_get_path('module', 'xml_migrate'),
+	    	'page arguments' => array('xml_to_nodes'),
+	    	'access arguments' => array('administer site configuration'),
+	    );
+
+		   //To bring the  'General settings'and 'Pending Actions' as tabs
+
+
+	    	$items['admin/config/development/xml_migrate/settings'] = array(
+		    	'title' => 'General settings',
+	    		'access arguments' => array('administer site configuration'),
+		 	'type' => MENU_DEFAULT_LOCAL_TASK,
+'weight' => 3,
+
+		  );
+
+	     	//To bring the  'General settings'and 'Pending Actions' as tabs
+
+	    	$items['admin/config/development/xml_migrate/content-type'] = array(
+		      	'title' => 'Content type',
+		  	'type' => MENU_LOCAL_TASK,
+		  	'description' => 'Select Content type.',
+        'page callback' => 'drupal_get_form',
+		  	'page arguments' => array('select_type'),
+		  	'file' => 'system.admin.inc',
+		  	'file path' => drupal_get_path('module', 'xml_migrate'),
+		    	'access arguments' => array('administer site configuration'),
+		    	'weight' => 2,
+	    	);
+
+
+
+$items['admin/config/development/xml_migrate/file'] = array(
+		      	'title' => 'Upload file',
+		  	'type' => MENU_LOCAL_TASK,
+		  	'description' => 'Upload the file.',
+        'page callback' => 'drupal_get_form',
+		  	'page arguments' => array('xml_import_file_upload'),
+		  	'file' => 'system.admin.inc',
+		  	'file path' => drupal_get_path('module', 'xml_migrate'),
+		    	'access arguments' => array('administer site configuration'),
+		    	'weight' => 4,
+	    	);
+
+
+
+
+return $items;
+
+  }

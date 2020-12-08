@@ -1,0 +1,6 @@
+name = Xml Migrate
+description = "Custom Module for showing importing xml data to drupal nodes."
+package = "Custom"
+core = 7.x
+files[] = xml_migrate.module
+configure = "admin/config/development/xml_migrate"
